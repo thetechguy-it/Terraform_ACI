@@ -31,16 +31,18 @@ resource "aci_vrf" "test-vrf" {
 
 # Application Profile
 resource "aci_application_profile" "test-app" {
+  for_each = var.app_set
+  name = each.value
   tenant_dn = aci_tenant.test-tenant.id
-  name = local.app_profile
+  #name = local.app_profile
 }
 
 # EPGx LOOP EXTERNAL VARIABLES
 resource "aci_application_epg" "test-epg" {
     for_each = var.epg_map
     name = each.key
-    application_profile_dn = aci_application_profile.test-app.id
     relation_fv_rs_bd = aci_bridge_domain.test-bd[each.value.bd].id
+    application_profile_dn = aci_application_profile.test-app[each.value.app].id
     pc_enf_pref = "unenforced"
     pref_gr_memb = "include"
     prio = "unspecified"

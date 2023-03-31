@@ -1,10 +1,3 @@
-#variable "epgs_set" {
-#    type = set (string)
-#}
-
-#variable "bds_set" {
-#    type = set (string)
-#}
 locals {
     username = "admin"
     password = "!v3G@!4@Y"
@@ -12,12 +5,13 @@ locals {
     phy_domain = "PHY_DOM_TECH"
     tenant = "THETECHGUY"
     vrf = "THETECHGUY_VRF"
-    app_profile = "THETECHGUY_APP"
+    #app_profile = "THETECHGUY_APP"
 }
 
 variable "epg_map" {
     type = map (object( {
         bd = string
+        app = string
     }
     ))
 } 
@@ -27,4 +21,8 @@ variable "bd_map" {
         bd_subnet = string
     }
     ))
+}
+
+variable "app_set" {
+    type = set (string)
 }

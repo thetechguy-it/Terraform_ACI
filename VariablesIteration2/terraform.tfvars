@@ -1,15 +1,3 @@
-#epgs_set = [
-#    "EPG1",
-#    "EPG2",
-#    "EPG3"
-#]
-
-#bds_set = [
-#    "BD1",
-#    "BD2",
-#    "BD3"
-#]
-
 bd_map = {
     "BD1" = {
         bd_subnet = "192.168.1.1/24"
@@ -25,11 +13,19 @@ bd_map = {
 epg_map = {
     "EPG1" = {
         bd = "BD1"
+        app = "THETECHGUY_APP1"
     }
     "EPG2" = {
         bd = "BD2"
+        app = "THETECHGUY_APP1"
     }
     "EPG3" = {
         bd = "BD3"
+        app = "THETECHGUY_APP2"
     }
 }
+
+app_set = [
+    "THETECHGUY_APP1",
+    "THETECHGUY_APP2"
+]
