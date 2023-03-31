@@ -5,6 +5,11 @@
 #variable "bds_set" {
 #    type = set (string)
 #}
+locals {
+    username = "admin"
+    password = "!v3G@!4@Y"
+    url = "https://sandboxapicdc.cisco.com"
+}
 
 variable "epg_map" {
     type = map (object( {
@@ -18,11 +23,4 @@ variable "bd_map" {
         bd_subnet = string
     }
     ))
-}
-
-
-locals {
-    username = "admin"
-    password = "!v3G@!4@Y"
-    url = "https://sandboxapicdc.cisco.com"
 }

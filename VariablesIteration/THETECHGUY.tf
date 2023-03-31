@@ -9,7 +9,7 @@ terraform {
 
 # Provider Configuration
 provider "aci" {
-  username = local.password
+  username = local.username
   password = local.password
   url = local.url
 }
@@ -63,4 +63,16 @@ resource "aci_subnet" "test-bdsubnet" {
     ip = each.value.bd_subnet
     parent_dn = aci_bridge_domain.test-bd[each.key].id
     scope = [ "public" ]
+}
+
+# Physical Domain
+resource "aci_physical_domain" "test-domain" {
+  name  = "PHY_DOM_TECH"
+}
+
+# EPG to Domain
+resource "aci_epg_to_domain" "test-epg_to_domain" {
+  for_each = var.epg_map
+  application_epg_dn = aci_application_epg.test-epg[each.key].id
+  tdn = aci_physical_domain.test-domain.id
 }
