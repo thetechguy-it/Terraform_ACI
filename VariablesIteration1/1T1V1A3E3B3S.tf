@@ -16,13 +16,13 @@ provider "aci" {
 
 # Tenant
 resource "aci_tenant" "test-tenant" {
-  name = "THETECHGUY"
+  name = local.tenant
 }
 
 # VRF
 resource "aci_vrf" "test-vrf" {
   tenant_dn  = aci_tenant.test-tenant.id
-  name = "THETECHGUY_vrf"
+  name = local.vrf
   ip_data_plane_learning = "enabled"
   knw_mcast_act = "permit"
   pc_enf_dir = "ingress"
@@ -32,7 +32,7 @@ resource "aci_vrf" "test-vrf" {
 # Application Profile
 resource "aci_application_profile" "test-app" {
   tenant_dn = aci_tenant.test-tenant.id
-  name = "THETECHGUY_APP"
+  name = local.app_profile
 }
 
 # EPGx LOOP EXTERNAL VARIABLES
@@ -63,11 +63,12 @@ resource "aci_subnet" "test-bdsubnet" {
     ip = each.value.bd_subnet
     parent_dn = aci_bridge_domain.test-bd[each.key].id
     scope = [ "public" ]
+    ctrl = ["unspecified"]
 }
 
 # Physical Domain
 resource "aci_physical_domain" "test-domain" {
-  name  = "PHY_DOM_TECH"
+  name  = local.phy_domain
 }
 
 # EPG to Domain
