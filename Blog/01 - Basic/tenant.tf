@@ -10,9 +10,9 @@ terraform {
 
 # Provider Configuration
 provider "aci" {
-  username = "admin"
-  password = "!v3G@!4@Y"
-  url = "https://sandboxapicdc.cisco.com"
+  username = local.username
+  password = local.password
+  url = local.url
 }
 
 # Tenant
