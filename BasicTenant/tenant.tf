@@ -3,6 +3,7 @@ terraform {
   required_providers {
     aci = {
       source = "ciscodevnet/aci"
+      version = "2.7.0"
     }
   }
 }
@@ -22,7 +23,7 @@ resource "aci_tenant" "test-tenant" {
 # VRF
 resource "aci_vrf" "test-vrf" {
   tenant_dn = aci_tenant.test-tenant.id
-  name = "THETECHGUY_vrf"
+  name = "THETECHGUY_VRF"
   ip_data_plane_learning = "enabled"
   knw_mcast_act = "permit"
   pc_enf_dir = "ingress"
@@ -38,7 +39,7 @@ resource "aci_application_profile" "test-app" {
 # EPG1
 resource "aci_application_epg" "test-epg" {
     application_profile_dn = aci_application_profile.test-app.id
-    name = "THETECHGUY_epg"
+    name = "THETECHGUY_EPG"
     pc_enf_pref = "unenforced"
     pref_gr_memb = "include"
     prio = "unspecified"
@@ -48,7 +49,7 @@ resource "aci_application_epg" "test-epg" {
 # BD1
 resource "aci_bridge_domain" "test-bd" {
         tenant_dn = aci_tenant.test-tenant.id
-        name = "THETECHGUY_bd"
+        name = "THETECHGUY_BD"
         arp_flood = "yes"
         unicast_route = "yes"
         relation_fv_rs_ctx = aci_vrf.test-vrf.id
