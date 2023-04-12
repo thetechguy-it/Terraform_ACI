@@ -64,36 +64,39 @@ resource "aci_subnet" "prod-bd-subnet" {
 }
 
 
-## EPG2
-#resource "aci_application_epg" "prod-epg2" {
-#    application_profile_dn = aci_application_profile.prod-app.id 
-#    name = "THETECHGUY_EPG2"
-#    relation_fv_rs_bd = aci_bridge_domain.prod-bd.id 
-#}
-#
-## BD2
-#resource "aci_bridge_domain" "prod-bd2" {
-#        tenant_dn = aci_tenant.prod-tenant.id 
-#        name = "THETECHGUY_BD2"
-#        arp_flood = "yes"
-#        unicast_route = "yes"
-#        relation_fv_rs_ctx = aci_vrf.prod-vrf.id 
-#}
-#
-## Subnet BD2
-#resource "aci_subnet" "prod-bd-subnet2" {
-#        parent_dn = aci_bridge_domain.prod-bd2.id 
-#        description = "subnet"
-#        ip = "192.168.255.254/24"
-#        preferred = "no"
-#        scope = ["public"]
-#        virtual = "no"
-#        ctrl = ["unspecified"]
-#}
-#
-## EPG3
-#resource "aci_application_epg" "prod-epg3" {
-#    application_profile_dn = aci_application_profile.prod-app.id 
-#    name = "THETECHGUY_EPG3"
-#    relation_fv_rs_bd = aci_bridge_domain.prod-bd.id 
-#}
+
+
+# ONLY FOR DEMONSTRATION
+# EPG2
+resource "aci_application_epg" "prod-epg2" {
+    application_profile_dn = aci_application_profile.prod-app.id 
+    name = "THETECHGUY_EPG2"
+    relation_fv_rs_bd = aci_bridge_domain.prod-bd.id 
+}
+
+# BD2
+resource "aci_bridge_domain" "prod-bd2" {
+        tenant_dn = aci_tenant.prod-tenant.id 
+        name = "THETECHGUY_BD2"
+        arp_flood = "yes"
+        unicast_route = "yes"
+        relation_fv_rs_ctx = aci_vrf.prod-vrf.id 
+}
+
+# Subnet BD2
+resource "aci_subnet" "prod-bd-subnet2" {
+        parent_dn = aci_bridge_domain.prod-bd2.id 
+        description = "subnet"
+        ip = "192.168.255.254/24"
+        preferred = "no"
+        scope = ["public"]
+        virtual = "no"
+        ctrl = ["unspecified"]
+}
+
+# EPG3
+resource "aci_application_epg" "prod-epg3" {
+    application_profile_dn = aci_application_profile.prod-app.id 
+    name = "THETECHGUY_EPG3"
+    relation_fv_rs_bd = aci_bridge_domain.prod-bd.id 
+}
