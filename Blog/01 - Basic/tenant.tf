@@ -71,7 +71,7 @@ resource "aci_subnet" "prod-bd-subnet" {
 resource "aci_application_epg" "prod-epg2" {
     application_profile_dn = aci_application_profile.prod-app.id 
     name = "THETECHGUY_EPG2"
-    relation_fv_rs_bd = aci_bridge_domain.prod-bd.id 
+    relation_fv_rs_bd = aci_bridge_domain.prod-bd2.id 
 }
 
 # BD2
