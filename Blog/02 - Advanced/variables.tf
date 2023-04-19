@@ -3,7 +3,6 @@ locals {
     username = "admin"
     password = "!v3G@!4@Y"
     url = "https://sandboxapicdc.cisco.com"
-    phy_domain = "PHY_DOM_TECH"
     tenant = "THETECHGUY"
 }
 

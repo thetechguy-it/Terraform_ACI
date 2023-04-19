@@ -63,6 +63,44 @@ resource "aci_subnet" "prod-bd-subnet" {
         ctrl = ["unspecified"]
 }
 
+# EPG to Domain
+resource "aci_epg_to_domain" "prod-epg_to_domain" {
+  application_epg_dn = aci_application_epg.prod-epg.id
+  tdn = aci_physical_domain.Physical_Dom.id
+}
+
+# VLAN Pool
+resource "aci_vlan_pool" "Physical_VLAN-Pool" {
+  name = "Physical_VLAN-Pool"
+  alloc_mode = "static"
+}
+resource "aci_ranges" "prod-vlanpool-range" {
+  vlan_pool_dn = aci_vlan_pool.Physical_VLAN-Pool.id
+  from = "vlan-2"
+  to = "vlan-1000"
+  alloc_mode = "static"
+}
+
+# Physical Domain
+resource "aci_physical_domain" "Physical_Dom" {
+  name = "Physical_Dom"
+  relation_infra_rs_vlan_ns = aci_vlan_pool.Physical_VLAN-Pool.id
+}
+
+# AAEP
+resource "aci_attachable_access_entity_profile" "Physical_AAEP" {
+  name = "Physical_AAEP"
+}
+
+# AAEP and Domain Association
+resource "aci_aaep_to_domain" "aaep_to_domain" {
+  attachable_access_entity_profile_dn = aci_attachable_access_entity_profile.Physical_AAEP.id
+  domain_dn = aci_physical_domain.Physical_Dom.id
+}
+
+
+
+
 
 
 
@@ -94,9 +132,21 @@ resource "aci_subnet" "prod-bd-subnet2" {
         ctrl = ["unspecified"]
 }
 
+# EPG2 to Domain
+resource "aci_epg_to_domain" "prod-epg_to_domain2" {
+  application_epg_dn = aci_application_epg.prod-epg2.id
+  tdn = aci_physical_domain.Physical_Dom.id
+}
+
 # EPG3
 resource "aci_application_epg" "prod-epg3" {
     application_profile_dn = aci_application_profile.prod-app.id 
     name = "THETECHGUY_EPG3"
     relation_fv_rs_bd = aci_bridge_domain.prod-bd.id 
+}
+
+# EPG3 to Domain
+resource "aci_epg_to_domain" "prod-epg_to_domain3" {
+  application_epg_dn = aci_application_epg.prod-epg3.id
+  tdn = aci_physical_domain.Physical_Dom.id
 }
